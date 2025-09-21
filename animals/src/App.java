@@ -16,100 +16,146 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
 
-        boolean loop = true;
-        while (loop) {
-            System.out.println("=====Введите одну из комманд=====");
-            System.out.printf("%s" + "\n", String.join(" | ", getEnumCommandNames()));
-            String userCommand = scanner.next().toLowerCase().trim().toString();
-            boolean isCommandExist = false;
-            for (CommandsData command : CommandsData.values()) {
-                if (command.name().toLowerCase().trim().equals(userCommand)) {
-                    isCommandExist = true;
-                    break;
+        try {
+            while (true) {
+                System.out.println("=====Введите одну из комманд=====");
+                System.out.printf("%s" + "\n", String.join(" | ", getEnumCommandNames()));
+                String userCommand = scanner.next().toLowerCase().trim().toString();
+                boolean isCommandExist = false;
+                for (CommandsData command : CommandsData.values()) {
+                    if (command.name().toLowerCase().trim().equals(userCommand)) {
+                        isCommandExist = true;
+                        break;
+                    }
                 }
-            }
 
-            if (!isCommandExist) {
-                System.out.println("Вы ввели неверную команду");
-                continue;
-            }
-
-            if (userCommand.equals("exit")) {
-                System.out.println("Вы вышли. Счастливо!");
-                loop = false;
-                System.exit(0);
-            }
-
-            if (userCommand.equals("add")) {
-                // Фабрика животных
-                AnimalsFactory new_animal = new AnimalsFactory();
-                // Установка типа животного
-                System.out.printf("Введите тип животного: %s\n", String.join(" | ", getEnumAnimalTypeNames()));
-                String animalType = scanner.next().toLowerCase().trim();
-                if ( !getEnumAnimalTypeNames().contains(animalType) ) {
-                    System.out.println("Такого животного не существует. Попробуйте ещё раз!");
+                if (!isCommandExist) {
+                    System.out.println("Вы ввели неверную команду");
                     continue;
                 }
-                System.out.printf("Вы выбрали - %s\n", animalType);
-                // Создание экземпляра животного
-                AbsAnimals animal = new_animal.create(AnimalsTypeData.valueOf(animalType));
 
-                // Установка имени животного
-                System.out.println("Введите имя животного");
-                animal.setName(scanner.next());
-                System.out.printf("Имя животного - %s\n", animal.getName());
-
-                // Установка возраста животного
-                System.out.println("Введите возраст животного. Целое число.");
-                String user_age = scanner.next().toString().trim();
-                boolean isIntAge = NumbersTools.isNumber(user_age);
-                if ( !isIntAge ) {
-                    System.out.printf("Такого возрасты \"%s\" быть не может. Попробуйте ещё раз!\n", user_age);
-                    continue;
+                if (userCommand.equals("exit")) {
+                    System.out.println("Вы вышли. Счастливо!");
+                    System.exit(0);
                 }
-                animal.setAge(Integer.parseInt(user_age));
-                System.out.printf("Возраст животного - %s\n", animal.getAge());
 
-                // Установка веса животного
-                System.out.println("Введите вес животного. Целое число.");
-                String user_weight = scanner.next().toString().trim();
-                boolean isIntWeight = NumbersTools.isNumber(user_weight);
-                if ( !isIntWeight ) {
-                    System.out.printf("Такого веса \"%s\" быть не может. Попробуйте ещё раз!\n", user_age);
-                    continue;
+                if (userCommand.equals("add")) {
+                    // Установка типа животного
+                    String animalType;
+                    while (true) {
+                        System.out.printf("Введите тип животного: %s\n", String.join(" | ", getEnumAnimalTypeNames()));
+                        animalType = scanner.next().toLowerCase().trim();
+                        if (animalType.equals("exit")) {
+                            System.out.println("Вы вышли. Счастливо!");
+                            System.exit(0);
+                        }
+                        if (!getEnumAnimalTypeNames().contains(animalType)) {
+                            System.out.println("Такого животного не существует. Попробуйте ещё раз!");
+                            continue;
+                        }
+                        break;
+                    }
+                    System.out.printf("Вы выбрали - %s\n", animalType);
+
+                    // Установка имени животного
+                    String animalName;
+                    while (true) {
+                        System.out.println("Введите имя животного");
+                        animalName = scanner.next().trim();
+                        if (animalName.equals("exit")) {
+                            System.out.println("Вы вышли. Счастливо!");
+                            System.exit(0);
+                        }
+                        System.out.printf("Имя животного - %s\n", animalName);
+                        break;
+                    }
+
+                    // Установка возраста животного
+                    String animalAge;
+                    while (true) {
+                        System.out.println("Введите возраст животного. Целое число.");
+                        animalAge = scanner.next().toString().trim();
+                        if (animalAge.equals("exit")) {
+                            System.out.println("Вы вышли. Счастливо!");
+                            System.exit(0);
+                        }
+                        boolean isIntAge = NumbersTools.isNumber(animalAge);
+                        if (!isIntAge) {
+                            System.out.printf("Такого возрасты \"%s\" быть не может. Попробуйте ещё раз!\n", animalAge);
+                            continue;
+                        }
+                        break;
+                    }
+                    System.out.printf("Возраст животного - %s\n", animalAge);
+
+                    // Установка веса животного
+                    String animalWeight;
+                    while (true) {
+                        System.out.println("Введите вес животного. Целое число.");
+                        animalWeight = scanner.next().toString().trim();
+                        if (animalWeight.equals("exit")) {
+                            System.out.println("Вы вышли. Счастливо!");
+                            System.exit(0);
+                        }
+                        boolean isIntWeight = NumbersTools.isNumber(animalWeight);
+                        if (!isIntWeight) {
+                            System.out.printf("Такого веса \"%s\" быть не может. Попробуйте ещё раз!\n", animalWeight);
+                            continue;
+                        }
+                        break;
+                    }
+                    System.out.printf("Вес животного - %s\n", animalWeight);
+
+                    // Установка цвета
+                    String animalColor;
+                    while (true) {
+                        System.out.printf("Выберите цвет животного: %s\n",
+                                String.join(" | ", getEnumAnimalColorsNames()));
+                        animalColor = scanner.next().toLowerCase().trim();
+                        if (animalColor.equals("exit")) {
+                            System.out.println("Вы вышли. Счастливо!");
+                            System.exit(0);
+                        }
+                        if (!getEnumAnimalColorsNames().contains(animalColor)) {
+                            System.out.printf("Такого цвета \"%s\" нет в предложенных вариантах. Попробуйте ещё раз!\n",
+                                    animalColor);
+                            continue;
+                        }
+                        break;
+                    }
+                    System.out.printf("Вы выбрали цвет - %s\n", ColorData.valueOf(animalColor.toUpperCase()).getName());
+
+                    // Создаю животного по полученным данным
+                    AnimalsFactory new_animal = new AnimalsFactory();
+                    // Создание экземпляра животного
+                    AbsAnimals animal = new_animal.create(
+                            AnimalsTypeData.valueOf(animalType),
+                            animalName,
+                            animalColor,
+                            Integer.parseInt(animalWeight),
+                            Integer.parseInt(animalAge));
+
+                    // Добавление животного в список созданных животных
+                    animals.add(animal);
+                    System.out.printf("Вы создали:\n%s\n", animal.toString());
+
                 }
-                animal.setWeight(Integer.parseInt(user_weight));
-                System.out.printf("Вес животного - %s\n", animal.getWeight());
 
-                // Установка цвета
-                System.out.printf("Выберите цвет животного: %s\n", String.join(" | ", getEnumAnimalColorsNames()));
-                String animalColor = scanner.next().toLowerCase().trim();
-                if ( !getEnumAnimalColorsNames().contains(animalColor) ) {
-                    System.out.printf("Такого цвета \"%s\" нет в предложенных вариантах. Попробуйте ещё раз!", animalColor);
-                    continue;
+                if (userCommand.equals("list")) {
+                    if (animals.size() == 0) {
+                        System.out.println("Вы ещё не создали ни одного животного");
+                    }
+                    System.out.println("Список созданных животных");
+                    for (AbsAnimals animal : animals) {
+                        System.out.println(animal.toString());
+                    }
                 }
-                System.out.println(ColorData.valueOf(animalColor.toUpperCase()));
-                animal.setColor(ColorData.valueOf(animalColor.toUpperCase()).getName());
-                System.out.printf("Вы выбрали цвет - %s\n", ColorData.valueOf(animalColor.toUpperCase()).getName());
-
-                // Добавление животного в список созданных животных
-                animals.add(animal);
-                System.out.printf("Вы создали:\n%s\n", animal.toString());
-
             }
-
-            if (userCommand.equals("list")) {
-                if (animals.size() == 0) {
-                    System.out.println("Вы ещё не создали ни одного животного");
-                }
-                System.out.println("Список созданных животных");
-                for (AbsAnimals animal : animals) {
-                    System.out.println(animal.toString());
-                }
-            }
+        } catch (Exception e) {
+            System.out.println("Возникла ошибка: " + e);
+        } finally {
+            scanner.close();
         }
-        scanner.close();
-        
     }
 
     public static List<String> getEnumCommandNames() {

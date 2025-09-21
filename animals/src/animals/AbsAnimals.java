@@ -1,6 +1,6 @@
 package animals;
 
-public class AbsAnimals {
+public abstract class AbsAnimals {
 
     private String name = null;
     private Integer age = null;

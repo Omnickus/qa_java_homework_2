@@ -11,7 +11,6 @@ public class NumbersTools {
         }
         Pattern pattern = Pattern.compile("^[0-9]{1,99}$");
         Matcher matcher = pattern.matcher(number);
-        boolean isNumber = matcher.find();
-        return isNumber;
+        return matcher.find();
     }
 }

@@ -8,6 +8,4 @@ public class Cat extends AbsAnimals {
         super(name, color, weight, age);
     }
 
-    
-
 }
