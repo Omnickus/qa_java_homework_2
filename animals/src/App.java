@@ -158,7 +158,7 @@ public class App {
         }
     }
 
-    public static List<String> getEnumCommandNames() {
+    private static List<String> getEnumCommandNames() {
         List<String> commandNames = new ArrayList<>();
         for (CommandsData command : CommandsData.values()) {
             commandNames.add(command.name().toLowerCase());
@@ -166,7 +166,7 @@ public class App {
         return commandNames;
     }
 
-    public static List<String> getEnumAnimalTypeNames() {
+    private static List<String> getEnumAnimalTypeNames() {
         List<String> names = new ArrayList<>();
         for (AnimalsTypeData type : AnimalsTypeData.values()) {
             names.add(type.name().toLowerCase().trim());
@@ -174,7 +174,7 @@ public class App {
         return names;
     }
 
-    public static List<String> getEnumAnimalColorsNames() {
+    private static List<String> getEnumAnimalColorsNames() {
         List<String> names = new ArrayList<>();
         for (ColorData type : ColorData.values()) {
             names.add(type.name().toLowerCase().trim());
